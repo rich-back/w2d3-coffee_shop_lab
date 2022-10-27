@@ -6,10 +6,22 @@ from src.drinks import Drink
 class TestCustomer(unittest.TestCase):
     
     def setUp(self):
-        self.customer1 = Customer("Jeff Bridges", 150)
+        self.customer1 = Customer("Jeff Bridges", 150, 72)
+        self.customer2 = Customer("Stuart Little", 10, 8)
 
     def test_customer_has_name(self):
         self.assertEqual("Jeff Bridges", self.customer1.name)
+
+    def test_customer_has_age(self):
+        self.assertEqual(72, self.customer1.age)
+
+    def test_check_over_16__true(self):
+        self.customer1.check_over_16(self.customer1.age)
+        self.assertLessEqual(16, self.customer1.age)
+
+    def test_check_over_16__false(self):
+        self.customer2.check_over_16(self.customer2.age)
+        self.assertGreater(16, self.customer2.age)
 
     def test_customer_has_money(self):
         self.assertEqual(150, self.customer1.wallet)
@@ -26,6 +38,7 @@ class TestCustomer(unittest.TestCase):
         self.assertEqual(1, len(self.customer1.drink_count))
 
     def test_can_customer_buy_drink(self):
+        self.customer1.check_over_16(self.customer1.age)
         drink1 = Drink("Mocha", 2.50)
         coffee_shop_name = CoffeeShop("The Prancing Pony", 100.00)
         coffee_shop_name.make_drink(drink1)

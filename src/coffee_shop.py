@@ -6,6 +6,8 @@ class CoffeeShop:
         self.till = till
         self.drinks = []
 
+   
+
     def increase_till(self, amount):
         self.till += amount
 
